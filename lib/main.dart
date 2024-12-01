@@ -13,11 +13,11 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MainScreen(),
+      home: const MainScreen(),
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           textTheme: Theme.of(context).textTheme.copyWith(
-              bodyLarge: TextStyle(
+              bodyLarge: const TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                   color: Colors.white))),
@@ -35,7 +35,11 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
-  List _screens = [HomePage(), DataPage(), ContactPage()];
+  final List _screens = [
+    const HomePage(),
+    const DataPage(),
+    const ContactPage()
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +52,7 @@ class _MainScreenState extends State<MainScreen> {
               _currentIndex = pageIndex;
             });
           },
-          destinations: [
+          destinations: const [
             NavigationDestination(icon: Icon(Icons.home), label: "Home"),
             NavigationDestination(icon: Icon(Icons.data_usage), label: "Data"),
             NavigationDestination(
@@ -68,7 +72,7 @@ class HomePage extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   image: DecorationImage(
                 image: AssetImage("assets/background.jpg"),
                 fit: BoxFit.cover,
@@ -80,7 +84,7 @@ class HomePage extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
                 child: Center(
                   child: Transform.rotate(
-                    angle: 0.3,
+                    angle: 0.7,
                     child: Text(
                       "Hello!!",
                       style: Theme.of(context).textTheme.bodyLarge,
@@ -126,15 +130,21 @@ class _DataPageState extends State<DataPage> {
                     itemCount: data.length,
                     itemBuilder: (context, index) {
                       return Card(
-                        child: ListTile(
-                          leading: Image.network(
-                            data[index].thumbnail,
-                            width: 50,
-                            height: 50,
-                            fit: BoxFit.cover,
+                        child: Padding(
+                          padding: const EdgeInsets.all(6.0),
+                          child: ListTile(
+                            leading: Image.network(
+                              data[index].thumbnail,
+                              width: 50,
+                              height: 50,
+                              fit: BoxFit.cover,
+                            ),
+                            title: Text(
+                              data[index].name,
+                              style: Theme.of(context).textTheme.titleLarge,
+                            ),
+                            subtitle: Text(data[index].description),
                           ),
-                          title: Text(data[index].name),
-                          subtitle: Text(data[index].description),
                         ),
                       );
                     });
